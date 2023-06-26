@@ -1,15 +1,10 @@
 package com.example.system_image_generator;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,6 +17,8 @@ public class Main extends Application  {
     public void start(Stage stage) throws IOException {
         window = stage;
         window.setTitle("Wa Burger");
+        window.setWidth(500);
+        window.setHeight(500);
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(20,20,20,20));
@@ -31,9 +28,9 @@ public class Main extends Application  {
         //name label
         Label nameLabel = new Label("Username");
         GridPane.setConstraints(nameLabel, 0, 0);
-        h
 
-
+        Artist imago = new Artist();
+        window.setScene(imago.draw());
         window.show();
     }
 
