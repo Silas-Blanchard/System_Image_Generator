@@ -31,6 +31,7 @@ public class Main extends Application  {
         //name label
         Label nameLabel = new Label("Username");
         GridPane.setConstraints(nameLabel, 0, 0);
+        h
 
 
         window.show();
