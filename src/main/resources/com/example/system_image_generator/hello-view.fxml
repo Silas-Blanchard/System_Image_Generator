@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.system_image_generator.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
-
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+<VBox id="vbox" prefHeight="400" prefWidth="800" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.system_image_generator.MenuController">
+    <MenuBar fx:id="menuBar" onKeyPressed="#handleActionEvent">
+        <menus>
+            <Menu text="File">
+                <items>
+                    <MenuItem fx:id="new" text="New" />
+                    <MenuItem fx:id="open" text="Open" />
+                    <MenuItem fx:id="save" text="Save" />
+                    <SeparatorMenuItem />
+                    <MenuItem text="Exit" />
+                </items>
+            </Menu>
+            <Menu text="Edit">
+                <items>
+                    <MenuItem fx:id="newPlanet" text="New Planet" />
+                    <MenuItem fx:id="newBelt" disable="true" text="New Belt" />
+                    <MenuItem fx:id="newMega" disable="true" text="New Mega-Structure" />
+                    <MenuItem fx:id="prop" disable="true" text="System Properties" />
+                </items>
+            </Menu>
+            <Menu text="Help">
+                <items>
+                    <MenuItem disable="true" text="Search" />
+                    <MenuItem text="Online Manual" visible="false" />
+                    <SeparatorMenuItem />
+                    <MenuItem onAction="#handleAboutAction" text="About" />
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+   <ListView fx:id="planetList" prefHeight="200.0" prefWidth="200.0" />
 </VBox>

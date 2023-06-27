@@ -8,6 +8,8 @@ public class Planemo {
     private double size;
     private double radius;
 
+    private double angle;
+
     public void setName(String name) {
         this.name = name;
     }
@@ -22,6 +24,14 @@ public class Planemo {
 
     public void setRadius(double radius) {
         this.radius = radius;
+    }
+
+    public void setAngle(double angle){
+        this.angle = Math.toRadians(angle);
+    }
+
+    public double getAngle() {
+        return angle;
     }
 
     public Double getRadius(){
