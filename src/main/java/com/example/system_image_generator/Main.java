@@ -43,8 +43,9 @@ public class Main extends Application  {
         grid.setVgap(8);
         grid.setHgap(10);
 
-        Artist imago = new Artist();
-        window.setScene(imago.draw());
+        Artist imago = Artist.getInstance();
+        imago.setWindow(window);
+        imago.updateWindow();
         window.show();
 
         //setting up the menu with all its buttons and such
@@ -52,9 +53,6 @@ public class Main extends Application  {
         FXMLLoader f = new FXMLLoader();
         final Parent fxmlRoot = (Parent)f.load(new FileInputStream(new File("src/main/resources/com/example/system_image_generator/hello-view.fxml")));
         menu.setScene(new Scene(fxmlRoot));
-
-        Button addPlanet = new Button("Add Planet");
-        addPlanet.setOnAction(e -> System.out.println("Wa"));
 
         VBox box = buttonSetup(imago.getPlanets());
 

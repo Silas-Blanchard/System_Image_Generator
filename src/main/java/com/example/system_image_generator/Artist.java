@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,17 +21,24 @@ import java.util.ArrayList;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
-public class Artist {
+public final class Artist { //this is a singleton that literally everyone needs to be able to talk to
+    private final static Artist imago = new Artist();
     private StarSystem sys;
+
+    public static Artist getInstance() {
+        return imago;
+    }
+
+    private Stage window;
     Planemo thalsiedeln;
     public Artist(){
         sys = new StarSystem("Arlioux"); //Making a default system used for testing purposes
-        thalsiedeln = new Planemo("Thalsiedeln", 10, 100); //size should be in earth radii and radius is in AU
+        thalsiedeln = new Planemo("Thalsiedeln", 10.0, 100.0); //size should be in earth radii and radius is in AU
         thalsiedeln.setAngle(180);
         sys.addPlanet(thalsiedeln); //It has one planet
 
         //Another planet!
-        Planemo belt = new Planemo("Belt", 10, 200); //size should be in earth radii and radius is in AU
+        Planemo belt = new Planemo("Belt", 10.0, 200.0); //size should be in earth radii and radius is in AU
         belt.setAngle(40);
         sys.addPlanet(belt); //It has one planet
     }
@@ -86,7 +94,7 @@ public class Artist {
         return circle;
     }
 
-    public Text getLabel(Planemo planet){
+    public Text getLabel(Planemo planet){ //Generates labels for the planets
         Double radius = planet.getRadius();
         double x = radius * cos(planet.getAngle());
         double y = radius * sin(planet.getAngle()) - 15;
@@ -98,15 +106,42 @@ public class Artist {
         return text;
     }
 
-    public ArrayList<Planemo> getPlanets(){
+    public ArrayList<Planemo> getPlanets(){ //returns an arraylist of planets
         return sys.getPlanets();
     }
 
-    public String[] getNames(){
+    public String[] getNames(){ //returns an array of planet names
         ArrayList<String> names = new ArrayList<String>();
         for(Planemo p: sys.getPlanets()){
             names.add(p.getName());
         }
         return names.toArray(new String[names.size()]);
     }
+
+    public Planemo searchPlanet(String name){ //searches a planet based on its name
+        for(Planemo p: sys.getPlanets()){
+            if(p.getName().equals(name)){
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public void updatePlanet(String name, Planemo p){ //replaces one planet with another
+        for(int i = 0; i < sys.getPlanets().size(); i++){
+            if(sys.getPlanets().get(i).getName().equals(name)){
+                sys.editPlanet(i,p);
+            }
+        }
+    }
+    public void setWindow(Stage window){
+        this.window = window;
+    }
+
+    public void updateWindow() throws FileNotFoundException { //gets the window to update with a new product
+        window.setScene(this.draw());
+        window.close();
+        window.show();
+    }
+
 }

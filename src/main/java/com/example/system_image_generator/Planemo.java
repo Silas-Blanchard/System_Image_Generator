@@ -50,7 +50,7 @@ public class Planemo {
         return name;
     }
 
-    public Planemo (String name, int size, int radius){
+    public Planemo (String name, Double size, Double radius){
         this.name = name;
         this.size = size;
         this.radius = radius;

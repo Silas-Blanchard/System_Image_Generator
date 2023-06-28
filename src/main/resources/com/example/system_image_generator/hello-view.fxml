@@ -37,5 +37,5 @@
             </Menu>
         </menus>
     </MenuBar>
-   <ListView fx:id="planetList" prefHeight="200.0" prefWidth="200.0" />
+   <ListView fx:id="planetList" prefHeight="200.0" prefWidth="200.0" onMouseClicked="#handleMouseClick"/>
 </VBox>
