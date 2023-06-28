@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
@@ -62,9 +63,12 @@ public final class Artist { //this is a singleton that literally everyone needs 
         star.setFill(Color.WHITE);
         g.getChildren().add(star);
 
-        //adding the planets
+        //adding the planets and moons
         for(Planemo p : sys.getPlanets()){
             g.getChildren().addAll(getPlanet(p),getOrbit(p),getLabel(p));
+            for(Planemo m: p.getMoons()){
+                g.getChildren().add(getMoon(m,p));
+            }
         }
 
         StackPane pane = new StackPane();
@@ -104,6 +108,25 @@ public final class Artist { //this is a singleton that literally everyone needs 
         text.setX(x);
         text.setY(y);
         return text;
+    }
+
+    public Circle getMoon (Planemo moon, Planemo planet){
+        Double size = moon.getSize();
+        Double radius = moon.getRadius();
+        //use the angle and radius to display it on the x y plane
+        //x = r * cos(degrees) y = r * sin(degrees)
+        double originx = planet.getRadius() * cos(planet.getAngle());
+        double originy = planet.getRadius() * sin(planet.getAngle());
+
+        double moonx = radius * cos(moon.getAngle());
+        double moony = radius * sin(moon.getAngle());
+
+        double x = originx + moonx;
+        double y = originy + moony;
+
+        Circle circle = new Circle(x,y,size);
+        circle.setFill(Color.WHITE);
+        return circle;
     }
 
     public ArrayList<Planemo> getPlanets(){ //returns an arraylist of planets

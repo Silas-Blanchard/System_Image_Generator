@@ -18,7 +18,7 @@
        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Angle (Double)" />
        <TextField fx:id="editAngle" onAction="#handleActionEvent" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="# of Moons (int)" />
-      <TextField fx:id="editAngle1" onAction="#handleActionEvent" />
+      <TextField fx:id="editMoons" onAction="#handleActionEvent" />
 
       <ButtonBar fx:id="bar" prefHeight="40.0" prefWidth="81.0">
         <buttons>

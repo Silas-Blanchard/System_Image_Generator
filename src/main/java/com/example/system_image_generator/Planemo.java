@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Planemo {
     private String name;
-    private ArrayList<Planemo> moons;
+    private ArrayList<Planemo> moons = new ArrayList<>();
     private double size;
     private double radius;
 
@@ -48,6 +48,17 @@ public class Planemo {
 
     public String getName() {
         return name;
+    }
+
+    public void setMoons(int i, Planemo parent){
+        int y = 0;
+        this.moons.clear();
+        while(y < i){
+            Planemo p = new Planemo("", 5.0, 20.0);
+            p.setAngle(360 / i * y);
+            moons.add(p);
+            y++;
+        }
     }
 
     public Planemo (String name, Double size, Double radius){
