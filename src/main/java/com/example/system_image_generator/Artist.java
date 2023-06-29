@@ -100,11 +100,14 @@ public final class Artist { //this is a singleton that literally everyone needs 
 
     public Text getLabel(Planemo planet){ //Generates labels for the planets
         Double radius = planet.getRadius();
-        double x = radius * cos(planet.getAngle());
-        double y = radius * sin(planet.getAngle()) - 15;
+        double x = radius * cos(planet.getAngle()); //is in radians. Just where I think it should go
+        double y = radius * sin(planet.getAngle());
         Text text = new Text(planet.getName());
-        text.setFont(Font.font("Century"));
+        text.setFont(Font.font("Century", 15));
         text.setFill(Color.WHITE);
+        final double width = text.getLayoutBounds().getWidth(); //finding width of text so we can center it
+        x = x - width / 2;
+        y = y - planet.getSize() - 15;
         text.setX(x);
         text.setY(y);
         return text;

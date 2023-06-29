@@ -1,12 +1,10 @@
 package com.example.system_image_generator;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -19,16 +17,16 @@ public class EditController {
     private TextField editName;
 
     @FXML
-    private TextField editSize;
+    private Slider editSize;
 
     @FXML
-    private TextField editDistance;
+    private Slider editDistance;
 
     @FXML
-    private TextField editAngle;
+    private Slider editAngle;
 
     @FXML
-    private TextField editMoons;
+    private Slider editMoons;
 
     @FXML
     private ButtonBar bar;
@@ -39,11 +37,23 @@ public class EditController {
     @FXML
     private Button submit;
 
+    //okay now for a bunch of annoying garbage that adds labels to the sliders
+    @FXML
+    private Label sizeLabel;
+
+    @FXML
+    private Label moonsLabel;
+
+    @FXML
+    private Label angleLabel;
+
+    @FXML
+    private Label distanceLabel;
+
     //these two allow this one to communicate with the other stages
     private MenuController mainMenu;
 
     String oldName;
-
 
     @FXML
     protected void handleActionEvent(ActionEvent e){
@@ -56,9 +66,9 @@ public class EditController {
     }
     @FXML
     protected void submit(ActionEvent e) throws FileNotFoundException {
-        Planemo p = new Planemo(editName.getText(), Double.parseDouble(editSize.getText()), Double.parseDouble(editDistance.getText()));
-        p.setAngle(Double.parseDouble(editAngle.getText()));
-        p.setMoons(Integer.parseInt(editMoons.getText()),p);
+        Planemo p = new Planemo(editName.getText(), (Double) editSize.getValue(), (Double) editDistance.getValue());
+        p.setAngle((Double) editAngle.getValue());
+        p.setMoons((int) editMoons.getValue(),p);
         mainMenu.redraw(p,oldName);
 
         //finds and closes the right stage
@@ -69,13 +79,16 @@ public class EditController {
     public void displayPrompts(Planemo p, MenuController men){
         this.mainMenu = men;
         editName.setText(p.getName());
-        editSize.setText(Double.toString(p.getSize()));
-        editDistance.setText(Double.toString(p.getRadius()));
-        editAngle.setText(Double.toString(Math.toDegrees(p.getAngle())));
-
-        //a special snowflake that can be null if the planet had no moons
-        editMoons.setText(Integer.toString(p.getMoons().size()));
+        editSize.setValue(p.getSize());
+        editDistance.setValue(p.getRadius());
+        editAngle.setValue(Math.toDegrees(p.getAngle()));
+        editMoons.setValue(p.getMoons().size());
 
         this.oldName  = editName.getText();
+
+        sizeLabel.textProperty().bind(Bindings.format("%.2f", editSize.valueProperty()));
+        distanceLabel.textProperty().bind(Bindings.format("%.2f", editDistance.valueProperty()));
+        angleLabel.textProperty().bind(Bindings.format("%.2f", editAngle.valueProperty()));
+        moonsLabel.textProperty().bind(Bindings.format("%.0f", editMoons.valueProperty()));
     }
 }
