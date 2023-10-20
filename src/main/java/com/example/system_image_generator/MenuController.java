@@ -81,6 +81,7 @@ public class MenuController implements Initializable {
         //final Parent fxmlRoot = (Parent)f.load(new FileInputStream(new File("src/main/resources/com/example/system_image_generator/editor.fxml")));
 
         editor.setScene(new Scene(root));
+
         editor.show();
     }
 

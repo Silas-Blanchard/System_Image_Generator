@@ -30,6 +30,8 @@ public final class Artist { //this is a singleton that literally everyone needs 
         return imago;
     }
 
+    public StackPane currentPane;
+
     private Stage window;
     Planemo thalsiedeln;
     public Artist(){
@@ -45,8 +47,6 @@ public final class Artist { //this is a singleton that literally everyone needs 
     }
 
     public Scene draw() throws FileNotFoundException {
-        GridPane grid = new GridPane();
-
         //all of this makes the background image ):
         FileInputStream inputstream = new FileInputStream("src/assets/LumiraBackground.png");
         Image image = new Image(inputstream);
@@ -75,6 +75,7 @@ public final class Artist { //this is a singleton that literally everyone needs 
         pane.setPrefSize(800,800);
         pane.getChildren().addAll(imageView, g);
 
+        currentPane = pane; //saves this for later
         return new Scene(pane, 800, 800);
     }
     public Circle getOrbit(Planemo planet){ //returns an empty circle with the radius of the orbit
@@ -166,8 +167,8 @@ public final class Artist { //this is a singleton that literally everyone needs 
 
     public void updateWindow() throws FileNotFoundException { //gets the window to update with a new product
         window.setScene(this.draw());
-        window.close();
-        window.show();
+        window.setWidth(window.getScene().getWidth() + 0.001); //forces it to reload
+        window.setWidth(800);
     }
 
 }
